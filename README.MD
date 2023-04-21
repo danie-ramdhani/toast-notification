@@ -1,15 +1,15 @@
 # Toast Message 🍞
 
 <p align="left">
-  <a href="https://www.npmjs.com/package/javascript-toast-notification" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/npm/v/javascript-toast-notification.svg" alt="NPM Release"></a>
-  <a href="https://github.com/danie-ramdhani/toast-notification/releases" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/github/release/danie-ramdhani/toast-notification?color=green" alt="Latest Release"></a>
+  <a href="https://www.npmjs.com/package/javascript-toast-notification"><img src="https://img.shields.io/npm/v/javascript-toast-notification.svg" alt="NPM Release"></a>
+  <a href="https://github.com/danie-ramdhani/toast-notification/releases"><img src="https://img.shields.io/github/release/danie-ramdhani/toast-notification?color=green" alt="Latest Release"></a>
 </p>
 
 A simple notification with better customization.
 
 ## Demo / Example
 
-You can <a href="https://danie-ramdhani.github.io/toast-notification/" target="_blank" rel="noopener noreferrer">click here</a> to see the demo
+You can <a href="https://danie-ramdhani.github.io/toast-notification/">click here</a> to see the demo
 
 ## Installation
 
