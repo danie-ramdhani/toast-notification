@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toast Message Example</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- <link rel="stylesheet" href="src/toast-message.css" /> -->
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            keyframes: {
+              "shrink-width": {
+                from: {
+                  width: "100%",
+                },
+                to: {
+                  width: "0%",
+                },
+              },
+            },
+            animation: {
+              "shrink-width": "linear shrink-width 1s",
+              "shrink-width-paused": "linear shrink-width 1s paused",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style type="text/tailwindcss">
+      @layer utilities {
+        input,
+        select {
+          @apply border-2 border-slate-500 rounded-md p-2 dark:bg-black;
+        }
+
+        .toast-wrapper {
+          @apply fixed flex items-center px-4 py-2;
+        }
+        .toast-wrapper.left {
+          @apply left-0 max-w-fit;
+        }
+        .toast-wrapper.center {
+          @apply mx-auto left-0 right-0 max-w-fit;
+        }
+        .toast-wrapper.right {
+          @apply right-0 max-w-fit;
+        }
+
+        .toast {
+          @apply flex items-center rounded-xl px-4 py-2 w-full gap-2 relative overflow-hidden;
+        }
+        .toast .toast-content-wrapper {
+          @apply flex flex-col max-w-full;
+        }
+        .toast .toast-content-wrapper .toast-title {
+          @apply text-xl font-semibold capitalize;
+        }
+        .toast .toast-content-wrapper .toast-message {
+          @apply text-left text-base;
+        }
+
+        .toast .toast-close-button,
+        .toast .toast-icon {
+          @apply max-w-[32px] max-h-[32px] font-serif text-2xl;
+        }
+        .toast .toast-icon {
+          @apply overflow-hidden;
+        }
+
+        /**.toast .progress-bar {
+          @apply w-full h-1 absolute bottom-0 left-0 right-0 animate-[linear_shrink-width];
+        }
+        .toast:hover .progress-bar {
+          @apply animate-[linear_shrink-width_paused];
+        }*/
+        .toast .progress-bar {
+          @apply w-full h-1 absolute bottom-0 left-0 right-0 animate-shrink-width;
+        }
+        .toast:hover .progress-bar {
+          @apply animate-shrink-width-paused;
+        }
+      }
+    </style>
+
+    <!-- dark mode function -->
+    <script>
+      const theme = ["dark", "light"];
+      if (!theme.includes(localStorage.theme)) {
+        localStorage.theme = "dark";
+      }
+
+      const lightMode = () => {
+        document.documentElement.classList.remove("dark");
+      };
+      const darkMode = () => {
+        document.documentElement.classList = "";
+        document.documentElement.classList.add("dark");
+      };
+
+      function updateTheme() {
+        localStorage.theme === "dark" ? darkMode() : lightMode();
+      }
+      updateTheme();
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+  <body class="p-4 text-slate-700 dark:text-slate-200 dark:bg-slate-950">
+    <h1 class="mb-4 text-4xl font-bold capitalize">toast message</h1>
+    <button
+      x-data="{
+                toggleIcon: localStorage.theme ?? 'dark',
+                toggleTheme() {
+                    localStorage.theme = localStorage.theme === 'dark' ? 'light' : 'dark'
+                    this.toggleIcon = localStorage.theme
+                    updateTheme()
+                }
+            }"
+      type="button"
+      x-on:click="toggleTheme"
+      class="fixed z-10 flex items-center px-4 py-2 text-white bg-black rounded-lg dark:text-black top-2 right-2 dark:bg-white"
+    >
+      <span class="capitalize" x-text="toggleIcon"></span>
+    </button>
+    <div
+      x-data="{ data: {
+          redirect: {},
+          progressBar: {},
+          position: {},
+        } 
+      }"
+      x-init="()=>{
+          data.classList = 'text-black bg-gradient-to-t from-emerald-400 via-sky-100 to-cyan-300 dark:text-white dark:bg-gradient-to-tl dark:from-slate-600 dark:via-neutral-800 dark:to-stone-300';
+          data.icon = '🍞';
+          data.duration = 5;
+      }"
+      class="flex flex-wrap gap-4"
+    >
+      <div class="flex flex-col w-full gap-2 px-2 overflow-y-auto font-semibold capitalize max-h-96 md:w-5/12">
+        <label class="flex flex-col">
+          <span>class list</span>
+          <input type="text" x-model="data.classList" placeholder="toast class list" />
+        </label>
+        <label class="flex flex-col">
+          <span>title</span>
+          <input type="text" x-model="data.title" placeholder="title" />
+        </label>
+        <label class="flex flex-col">
+          <span>message</span>
+          <input type="text" x-model="data.message" placeholder="message" />
+        </label>
+        <label class="flex flex-col">
+          <span>icon</span>
+          <input type="text" x-model="data.icon" placeholder="icon" />
+        </label>
+        <label class="flex flex-col">
+          <span>duration (in seconds)</span>
+          <input type="number" max="1000" maxlength="4" min="-1" x-model="data.duration" placeholder="duration (in seconds)" />
+        </label>
+        <div>
+          <span>close button</span>
+          <div class="flex flex-row gap-2">
+            <label class="flex flex-row items-center gap-1">
+              <input type="radio" value="true" x-model="data.closeButton" />
+              <span>yes</span>
+            </label>
+            <label class="flex flex-row items-center gap-1">
+              <input type="radio" value="false" x-model="data.closeButton" />
+              <span>no</span>
+            </label>
+          </div>
+        </div>
+        <div class="flex flex-row flex-wrap w-full gap-2">
+          <label class="flex flex-col">
+            <span>position x</span>
+            <select x-model="data.position.x">
+              <option value="right">right (default)</option>
+              <option value="center">center</option>
+              <option value="left">left</option>
+            </select>
+          </label>
+          <label class="flex flex-col">
+            <span>position y</span>
+            <select x-model="data.position.y">
+              <option value="bottom">bottom (default)</option>
+              <option value="top">top</option>
+            </select>
+          </label>
+          <label class="flex flex-col">
+            <span>position z (z-index)</span>
+            <input type="number" min="1" x-model="data.position.z" placeholder="position z" />
+          </label>
+        </div>
+        <div>
+          <span class="text-xl underline">redirect</span>
+          <div class="flex flex-row gap-2">
+            <label class="flex flex-col flex-grow">
+              <span>url</span>
+              <input type="text" x-model="data.redirect.url" placeholder="url" />
+            </label>
+            <div>
+              <span>open on new window</span>
+              <div class="flex flex-row gap-2">
+                <label class="flex flex-row items-center gap-1">
+                  <input type="radio" value="true" x-model="data.redirect.newWindow" />
+                  <span>yes</span>
+                </label>
+                <label class="flex flex-row items-center gap-1">
+                  <input type="radio" value="false" x-model="data.redirect.newWindow" />
+                  <span>no</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="text-xl underline">progress bar</span>
+          <div class="flex flex-row gap-2">
+            <div>
+              <span>show</span>
+              <div class="flex flex-row gap-2">
+                <label class="flex flex-row items-center gap-1">
+                  <input type="radio" value="true" x-model="data.progressBar.show" />
+                  <span>yes</span>
+                </label>
+                <label class="flex flex-row items-center gap-1">
+                  <input type="radio" value="false" x-model="data.progressBar.show" />
+                  <span>no</span>
+                </label>
+              </div>
+            </div>
+            <label class="flex flex-col flex-grow">
+              <span>class list for progress bar</span>
+              <input type="text" x-model="data.progressBar.classList" placeholder="class list" />
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="relative w-full p-4 pb-16 text-white bg-slate-600 md:w-5/12 grow rounded-xl">
+        <div class="absolute z-10 md:bottom-2 md:left-2 right-2">
+          <button type="button" class="px-4 py-2 text-white bg-black rounded-xl w-fit" x-on:click="$dispatch('showToastMessage', data)">
+            Create Toast
+          </button>
+        </div>
+        <h3 class="mb-4 text-xl">Generated code:</h3>
+        <code class="select-all">
+          <span class="block"
+            ><span class="text-sky-400">var</span> <span class="text-cyan-400">createToastMessage</span> =
+            <span class="text-sky-400">new</span> <span class="text-amber-500">ToastMessage</span>();</span
+          >
+          <span class="inline text-cyan-400">createToastMessage</span>.<span class="text-amber-500">create</span>
+          <span class="inline">({</span>
+          <template x-for="(value, key) in data">
+            <div
+              class="flex ml-2"
+              x-bind:class="(!value || (typeof value === 'object' && Object.values(value).every(v => !v))) ? 'hidden' : ''"
+            >
+              <span
+                x-text="key + ':&nbsp;'"
+                class="text-amber-500"
+                x-bind:class="(!value || (typeof value === 'object' && Object.values(value).every(v => !v))) ? 'hidden' : ''"
+              ></span>
+              <template x-if="typeof value === 'object'">
+                <div x-bind:class="(Object.keys(value).length <= 0 || Object.values(value).every(v => !v)) ? 'hidden' : ''">
+                  {
+                  <template x-for="(propValue, propKey) in value">
+                    <div class="ml-4" x-bind:class="!propValue && 'hidden'">
+                      <span class="text-amber-500" x-text="propKey +':'"></span>
+                      <span x-text="'\''+propValue+'\','"></span>
+                    </div>
+                  </template>
+                  },
+                </div>
+              </template>
+              <template x-if="typeof value !== 'object'">
+                <span x-text="'\''+value+'\','"></span>
+              </template>
+            </div>
+          </template>
+          <span class="inline">});</span>
+        </code>
+      </div>
+    </div>
+    <footer class="flex justify-end w-full gap-1">
+      Build with
+      <a href="https://tailwindcss.com/" target="_blank" rel="noopener noreferrer">
+        <img
+          class="inline h-4"
+          src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.79614a5f61617ba49a0891494521226b.svg"
+          alt="Tailwindcss"
+          title="Tailwindcss"
+        />
+      </a>
+      &amp;
+      <a href="https://alpinejs.dev/" target="_blank" rel="noopener noreferrer">
+        <img class="inline h-6 rounded-sm" src="https://github.com/alpinejs.png?size=400" alt="Alpine.js" title="Alpine.js" />
+      </a>
+    </footer>
+
+    <script src="src/toast-message.js"></script>
+
+    <script>
+      var toastMessage = ToastMessage();
+      window.addEventListener("showToastMessage", (event) => {
+        toastMessage.create({
+          classList: event.detail.classList,
+          title: event.detail.title,
+          message: event.detail.message,
+          icon: event.detail.icon
+            ? event.detail.icon
+            : "<svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' class='w-full h-full text-green-500' viewBox='0 0 16 16'>   <path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/> </svg>",
+          duration: event.detail.duration ?? 0,
+          closeButton: event.detail.closeButton,
+          position: event.detail.position,
+          redirect: event.detail.redirect,
+          progressBar: event.detail.progressBar,
+        });
+      });
+    </script>
+  </body>
+</html>
