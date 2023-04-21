@@ -1,7 +1,7 @@
 # Toast Notification 🍞
 
 <p align="left">
-  <a href="https://www.npmjs.com/package/javascript-toast-notification"><img src="https://img.shields.io/npm/v/toast-notification-js.svg" alt="NPM Release"></a>
+  <a href="https://www.npmjs.com/package/toast-notification-js"><img src="https://img.shields.io/npm/v/toast-notification-js.svg" alt="NPM Release"></a>
   <a href="https://github.com/danie-ramdhani/toast-notification/releases"><img src="https://img.shields.io/github/release/danie-ramdhani/toast-notification?color=green" alt="Latest Release"></a>
 </p>
 
