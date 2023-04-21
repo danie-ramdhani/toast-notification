@@ -19,7 +19,7 @@ You can install it via NPM
 npm i javascript-toast-notification
 ```
 
-or you can include it on you page
+or you can include it on you page via CDN
 
 on head tag:
 
