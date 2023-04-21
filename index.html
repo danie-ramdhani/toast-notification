@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Toast Message Example</title>
+    <title>Toast Notification Example</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -115,7 +115,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
   <body class="p-4 text-slate-700 dark:text-slate-200 dark:bg-slate-950">
-    <h1 class="mb-4 text-4xl font-bold capitalize">toast message</h1>
+    <h1 class="mb-4 text-4xl font-bold capitalize">toast notification</h1>
     <button
       x-data="{
                 toggleIcon: localStorage.theme ?? 'dark',
@@ -258,10 +258,10 @@
         <h3 class="mb-4 text-xl">Generated code:</h3>
         <code class="select-all">
           <span class="block"
-            ><span class="text-sky-400">var</span> <span class="text-cyan-400">createToastMessage</span> =
-            <span class="text-sky-400">new</span> <span class="text-amber-500">ToastMessage</span>();</span
+            ><span class="text-sky-400">var</span> <span class="text-cyan-400">createToastNotification</span> =
+            <span class="text-sky-400">new</span> <span class="text-amber-500">ToastNotification</span>();</span
           >
-          <span class="inline text-cyan-400">createToastMessage</span>.<span class="text-amber-500">create</span>
+          <span class="inline text-cyan-400">createToastNotification</span>.<span class="text-amber-500">create</span>
           <span class="inline">({</span>
           <template x-for="(value, key) in data">
             <div
@@ -314,9 +314,9 @@
     <!-- <script src="https://unpkg.com/javascript-toast-notification/dist/toast-notification.min.js"></script> -->
 
     <script>
-      var toastMessage = ToastNotification();
+      var toastNotification = ToastNotification();
       window.addEventListener("showToastNotification", (event) => {
-        toastMessage.create({
+        toastNotification.create({
           classList: event.detail.classList,
           title: event.detail.title,
           message: event.detail.message,

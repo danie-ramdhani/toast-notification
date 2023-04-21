@@ -1,7 +1,7 @@
-# Toast Message 🍞
+# Toast Notification 🍞
 
 <p align="left">
-  <a href="https://www.npmjs.com/package/javascript-toast-notification"><img src="https://img.shields.io/npm/v/javascript-toast-notification.svg" alt="NPM Release"></a>
+  <a href="https://www.npmjs.com/package/javascript-toast-notification"><img src="https://img.shields.io/npm/v/toast-notification-js.svg" alt="NPM Release"></a>
   <a href="https://github.com/danie-ramdhani/toast-notification/releases"><img src="https://img.shields.io/github/release/danie-ramdhani/toast-notification?color=green" alt="Latest Release"></a>
 </p>
 
@@ -16,7 +16,7 @@ You can <a href="https://danie-ramdhani.github.io/toast-notification/">click her
 You can install it via NPM
 
 ```sh
-npm i javascript-toast-notification
+npm i toast-notification-js
 ```
 
 or you can include it on you page via CDN
@@ -24,13 +24,13 @@ or you can include it on you page via CDN
 on head tag:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/javascript-toast-notification/dist/toast-notification.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/toast-notification-js/dist/toast-notification.min.css" />
 ```
 
 on body tag:
 
 ```html
-<script src="https://unpkg.com/javascript-toast-notification/dist/toast-notification.min.js"></script>
+<script src="https://unpkg.com/toast-notification-js/dist/toast-notification.min.js"></script>
 ```
 
 ## ⏩ Quick Start:
