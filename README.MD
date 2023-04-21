@@ -10,6 +10,20 @@ You can install it via NPM
 npm i javascript-toast-notification
 ```
 
+or you can include it on you page
+
+on head tag:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/javascript-toast-notification/dist/toast-notification.min.css" />
+```
+
+on body tag:
+
+```html
+<script src="https://unpkg.com/javascript-toast-notification/dist/toast-notification.min.js"></script>
+```
+
 ## ⏩ Quick Start:
 
 ```javascript
