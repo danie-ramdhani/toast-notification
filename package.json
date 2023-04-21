@@ -1,5 +1,5 @@
 {
-  "name": "toast-notification",
+  "name": "javascript-toast-notification",
   "version": "1.0.0",
   "description": "A simple notification with better customization",
   "main": "dist/toast-notification.min.js",

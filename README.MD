@@ -2,6 +2,14 @@
 
 A simple notification with better customization.
 
+## Installation
+
+You can install it via NPM
+
+```sh
+npm i javascript-toast-notification
+```
+
 ## ⏩ Quick Start:
 
 ```javascript
