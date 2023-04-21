@@ -1,4 +1,4 @@
-function ToastMessage() {
+function ToastNotification() {
   let allElements = {
     top: [],
     bottom: [],
@@ -12,7 +12,7 @@ function ToastMessage() {
       title: preferences.title ? preferences.title : null,
       message: preferences.message || "This is Toast message!",
       icon: preferences.icon ? preferences.icon : null,
-      duration: preferences.duration && preferences.duration > 0 ? preferences.duration * 1000 : preferences.duration <= 0 ? -1 : 5000,
+      duration: !preferences.duration ? 5000 : preferences.duration > 0 ? preferences.duration * 1000 : -1,
       closeButton: ["false", "0"].includes(String(preferences.closeButton).toLowerCase()) ? false : true,
       position: {
         x: preferences.position && ["left", "center", "right"].includes(preferences.position.x) ? preferences.position.x : "right",

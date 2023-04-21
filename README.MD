@@ -36,13 +36,13 @@ on body tag:
 ## ⏩ Quick Start:
 
 ```javascript
-var toastMessage = ToastMessage();
+var toastNotification = ToastNotification();
 
-toastMessage.create();
+toastNotification.create();
 
 // or
 
-toastMessage.create({
+toastNotification.create({
   classList: "your-favorite-custom-color",
   icon: "🍞",
   duration: "10",

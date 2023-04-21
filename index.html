@@ -141,7 +141,7 @@
       x-init="()=>{
           data.classList = 'text-black bg-gradient-to-t from-emerald-400 via-sky-100 to-cyan-300 dark:text-white dark:bg-gradient-to-tl dark:from-slate-600 dark:via-neutral-800 dark:to-stone-300';
           data.icon = '🍞';
-          data.duration = 5;
+          // data.duration = 5;
       }"
       class="flex flex-wrap gap-4"
     >
@@ -247,7 +247,11 @@
       </div>
       <div class="relative w-full p-4 pb-16 text-white bg-slate-600 md:w-5/12 grow rounded-xl">
         <div class="absolute z-10 md:bottom-2 md:left-2 right-2">
-          <button type="button" class="px-4 py-2 text-white bg-black rounded-xl w-fit" x-on:click="$dispatch('showToastMessage', data)">
+          <button
+            type="button"
+            class="px-4 py-2 text-white bg-black rounded-xl w-fit"
+            x-on:click="$dispatch('showToastNotification', data)"
+          >
             Create Toast
           </button>
         </div>
@@ -306,12 +310,12 @@
       </a>
     </footer>
 
-    <!-- <script src="src/toast-notification.js"></script> -->
-    <script src="https://unpkg.com/javascript-toast-notification/dist/toast-notification.min.js"></script>
+    <script src="src/toast-notification.js"></script>
+    <!-- <script src="https://unpkg.com/javascript-toast-notification/dist/toast-notification.min.js"></script> -->
 
     <script>
-      var toastMessage = ToastMessage();
-      window.addEventListener("showToastMessage", (event) => {
+      var toastMessage = ToastNotification();
+      window.addEventListener("showToastNotification", (event) => {
         toastMessage.create({
           classList: event.detail.classList,
           title: event.detail.title,
@@ -319,7 +323,7 @@
           icon: event.detail.icon
             ? event.detail.icon
             : "<svg xmlns='http://www.w3.org/2000/svg' fill='currentColor' class='w-full h-full text-green-500' viewBox='0 0 16 16'>   <path d='M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z'/> </svg>",
-          duration: event.detail.duration ?? 0,
+          duration: event.detail.duration,
           closeButton: event.detail.closeButton,
           position: event.detail.position,
           redirect: event.detail.redirect,
