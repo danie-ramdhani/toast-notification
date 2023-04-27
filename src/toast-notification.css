@@ -53,6 +53,7 @@
 
 .toast .toast-close-button,
 .toast .toast-icon {
+  display: flex;
   max-width: 32px;
   max-height: 32px;
   font-family: serif;

@@ -70,24 +70,24 @@
 
         .toast .toast-close-button,
         .toast .toast-icon {
-          @apply max-w-[32px] max-h-[32px] font-serif text-2xl;
+          @apply flex max-w-[32px] max-h-[32px] font-serif text-2xl;
         }
         .toast .toast-icon {
           @apply overflow-hidden;
         }
 
-        /**.toast .progress-bar {
-          @apply w-full h-1 absolute bottom-0 left-0 right-0 animate-[linear_shrink-width];
-        }
-        .toast:hover .progress-bar {
-          @apply animate-[linear_shrink-width_paused];
-        }*/
         .toast .progress-bar {
           @apply w-full h-1 absolute bottom-0 left-0 right-0 animate-shrink-width;
         }
         .toast:hover .progress-bar {
           @apply animate-shrink-width-paused;
         }
+        /**.toast .progress-bar {
+          @apply w-full h-1 absolute bottom-0 left-0 right-0 animate-[linear_shrink-width];
+        }
+        .toast:hover .progress-bar {
+          @apply animate-[linear_shrink-width_paused];
+        }*/
       }
     </style>
 
@@ -247,11 +247,7 @@
       </div>
       <div class="relative w-full p-4 pb-16 text-white bg-slate-600 md:w-5/12 grow rounded-xl">
         <div class="absolute z-10 md:bottom-2 md:left-2 right-2">
-          <button
-            type="button"
-            class="px-4 py-2 text-white bg-black rounded-xl w-fit"
-            x-on:click="$dispatch('showToastNotification', data)"
-          >
+          <button type="button" class="px-4 py-2 text-white bg-black rounded-xl w-fit" x-on:click="$dispatch('showToastNotification', data)">
             Create Toast
           </button>
         </div>
@@ -259,15 +255,12 @@
         <code class="select-all">
           <span class="block"
             ><span class="text-sky-400">var</span> <span class="text-cyan-400">createToastNotification</span> =
-            <span class="text-sky-400">new</span> <span class="text-amber-500">ToastNotification</span>();</span
+            <span class="text-amber-500">ToastNotification</span>();</span
           >
           <span class="inline text-cyan-400">createToastNotification</span>.<span class="text-amber-500">create</span>
           <span class="inline">({</span>
           <template x-for="(value, key) in data">
-            <div
-              class="flex ml-2"
-              x-bind:class="(!value || (typeof value === 'object' && Object.values(value).every(v => !v))) ? 'hidden' : ''"
-            >
+            <div class="flex ml-2" x-bind:class="(!value || (typeof value === 'object' && Object.values(value).every(v => !v))) ? 'hidden' : ''">
               <span
                 x-text="key + ':&nbsp;'"
                 class="text-amber-500"

@@ -4,8 +4,7 @@
   "description": "A simple notification with better customization",
   "main": "dist/toast-notification.min.js",
   "files": [
-    "dist/toast-notification.min.css",
-    "dist/toast-notification.min.js"
+    "dist/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

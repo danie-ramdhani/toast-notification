@@ -12,7 +12,7 @@ function ToastNotification() {
       title: preferences.title ? preferences.title : null,
       message: preferences.message || "This is Toast message!",
       icon: preferences.icon ? preferences.icon : null,
-      duration: !preferences.duration ? 5000 : preferences.duration > 0 ? preferences.duration * 1000 : -1,
+      duration: !preferences.duration ? 5000 : preferences.duration * 1000,
       closeButton: ["false", "0"].includes(String(preferences.closeButton).toLowerCase()) ? false : true,
       position: {
         x: preferences.position && ["left", "center", "right"].includes(preferences.position.x) ? preferences.position.x : "right",
@@ -20,12 +20,11 @@ function ToastNotification() {
         z: preferences.position && preferences.position.z ? preferences.position.z : 50,
       },
       redirect:
-        typeof preferences.redirect == "string"
+        preferences.redirect && typeof preferences.redirect == "string"
           ? preferences.redirect
           : {
               url: preferences.redirect && preferences.redirect.url ? preferences.redirect.url : null,
-              newWindow:
-                preferences.redirect && ["false", "0"].includes(String(preferences.redirect.newWindow).toLowerCase()) ? false : true,
+              newWindow: preferences.redirect && ["false", "0"].includes(String(preferences.redirect.newWindow).toLowerCase()) ? false : true,
             },
       progressBar: ["false", "0"].includes(String(preferences.progressBar).toLowerCase())
         ? false
@@ -77,12 +76,14 @@ function ToastNotification() {
     // toast message
     if (typeof options.redirect == "string") {
       message.href = options.redirect;
+      message.style.color = "currentColor";
       message.style.textDecorationLine = "underline";
       message.style.textUnderlineOffset = "2px";
       message.target = "_blank";
       message.rel = "noopener noreferrer";
     } else if (options.redirect.url) {
       message.href = options.redirect.url;
+      message.style.color = "currentColor";
       message.style.textDecorationLine = "underline";
       message.style.textUnderlineOffset = "2px";
       if (options.redirect.newWindow) {
@@ -110,12 +111,10 @@ function ToastNotification() {
     }
 
     // progress bar
-    if (options.progressBar.show && options.duration >= 0) {
+    if (options.progressBar.show && options.duration > 0) {
       progressBar = document.createElement("div");
       progressBar.className += "progress-bar ";
-      options.progressBar.classList
-        ? (progressBar.className += options.progressBar.classList)
-        : (progressBar.style.backgroundColor = "currentColor");
+      options.progressBar.classList ? (progressBar.className += options.progressBar.classList) : (progressBar.style.backgroundColor = "currentColor");
       progressBar.style.animationDuration = options.duration + "ms";
       toastBody.append(progressBar);
     }
@@ -188,13 +187,13 @@ function ToastNotification() {
 
     toastMainFunction.autoRemove = (element) => {
       // remove element using duration
-      if (options.duration >= 0 && !options.progressBar.show) {
+      if (options.duration > 0 && !options.progressBar.show) {
         setTimeout(() => {
           toastMainFunction.removeElement(element);
         }, options.duration);
       }
       // remove element using progress bar
-      if (options.duration >= 0 && options.progressBar.show) {
+      if (options.duration > 0 && options.progressBar.show) {
         progressBar.addEventListener("animationend", (event) => {
           event.stopPropagation();
 
