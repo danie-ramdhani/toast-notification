@@ -13,3 +13,9 @@
 ### fixed:
 
 - centering `toast-icon` & `toast-close-button` class using `flex`
+
+## [1.0.2] - 2023-05-05
+
+### fixed:
+
+- fix notification stay in same place

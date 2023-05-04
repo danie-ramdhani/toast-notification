@@ -1,17 +1,23 @@
 {
   "name": "toast-notification-js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple notification with better customization",
-  "main": "dist/toast-notification.min.js",
-  "files": [
+  "main": "src/toast-notification.esm.js",
+  "module": "src/toast-notification.esm.js",
+  "style": "src/toast-notification.css",
+  "unpkg": [
     "dist/*"
+  ],
+  "files": [
+    "dist/*",
+    "src/*"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danie-ramdhani/toast-message.git"
+    "url": "git+https://github.com/danie-ramdhani/toast-notification.git"
   },
   "keywords": [
     "notification",
@@ -21,7 +27,7 @@
   "author": "Danie Ramdhani",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danie-ramdhani/toast-message/issues"
+    "url": "https://github.com/danie-ramdhani/toast-notification/issues"
   },
-  "homepage": "https://github.com/danie-ramdhani/toast-message#readme"
+  "homepage": "https://github.com/danie-ramdhani/toast-notification#readme"
 }

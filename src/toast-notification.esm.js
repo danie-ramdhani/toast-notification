@@ -1,12 +1,9 @@
-function ToastNotification() {
-  let allElements = {
-    top: [],
-    bottom: [],
-  };
-
-  let toastMessage = {};
-
-  toastMessage.create = (preferences = {}) => {
+var toastNotificationElements = {
+  top: [],
+  bottom: [],
+};
+export function ToastNotification() {
+  ToastNotification.create = (preferences = {}) => {
     const options = {
       classList: preferences.classList ? preferences.classList : null,
       title: preferences.title ? preferences.title : null,
@@ -128,9 +125,7 @@ function ToastNotification() {
     toastWrapper.style.transitionDuration = transitionDuration + "ms";
     toastWrapper.appendChild(toastBody);
 
-    let toastMainFunction = {};
-
-    toastMainFunction.createElement = () => {
+    var createElement = () => {
       // insert element below body
       const newElement = document.body.insertAdjacentElement("afterbegin", toastWrapper);
 
@@ -138,39 +133,41 @@ function ToastNotification() {
       if (options.closeButton) {
         closeButton.addEventListener("click", (event) => {
           event.stopPropagation();
-          toastMainFunction.removeElement(newElement);
+          removeElement(newElement);
         });
       }
 
       // new element transition
       const newElementOffset =
-        allElements[options.position.y][allElements[options.position.y].length - 1] !== undefined
-          ? parseFloat(allElements[options.position.y][allElements[options.position.y].length - 1].style[options.position.y])
+        toastNotificationElements[options.position.y][toastNotificationElements[options.position.y].length - 1] !== undefined
+          ? parseFloat(
+              toastNotificationElements[options.position.y][toastNotificationElements[options.position.y].length - 1].style[options.position.y]
+            )
           : offset;
       toastWrapper.style[options.position.y] = newElementOffset + "px";
 
       // push new element
-      allElements[options.position.y].push(newElement);
+      toastNotificationElements[options.position.y].push(newElement);
 
       // adjust position of previous elements
-      allElements[options.position.y].slice(0, allElements[options.position.y].length - 1).forEach((element) => {
+      toastNotificationElements[options.position.y].slice(0, toastNotificationElements[options.position.y].length - 1).forEach((element) => {
         const currentPos = parseFloat(element.style[options.position.y]);
         element.style[options.position.y] = `${currentPos + newElement.offsetHeight + offset}px`;
       });
 
       // auto remove function
-      toastMainFunction.autoRemove(newElement);
+      autoRemoveElement(newElement);
     };
 
-    toastMainFunction.removeElement = (element) => {
-      const index = allElements[options.position.y].indexOf(element);
+    var removeElement = (element) => {
+      const index = toastNotificationElements[options.position.y].indexOf(element);
       const removedHeight = element.offsetHeight;
 
       // opacity transition
       element.style.opacity = "0";
 
-      // Remove current element from allElements
-      allElements[options.position.y].splice(index, 1);
+      // Remove current element from toastNotificationElements
+      toastNotificationElements[options.position.y].splice(index, 1);
 
       // Delaying remove current element from DOM for opacity transition effect
       setTimeout(() => {
@@ -178,18 +175,18 @@ function ToastNotification() {
         element.remove();
 
         // adjust position of previous elements
-        allElements[options.position.y].slice(0, index).forEach((toastElement) => {
+        toastNotificationElements[options.position.y].slice(0, index).forEach((toastElement) => {
           const currentPos = parseFloat(toastElement.style[options.position.y] || 0);
           toastElement.style[options.position.y] = `${currentPos - removedHeight - offset}px`;
         });
       }, transitionDuration / 2);
     };
 
-    toastMainFunction.autoRemove = (element) => {
+    var autoRemoveElement = (element) => {
       // remove element using duration
       if (options.duration > 0 && !options.progressBar.show) {
         setTimeout(() => {
-          toastMainFunction.removeElement(element);
+          removeElement(element);
         }, options.duration);
       }
       // remove element using progress bar
@@ -199,13 +196,13 @@ function ToastNotification() {
 
           progressBar.style.opacity = 0;
 
-          toastMainFunction.removeElement(element);
+          removeElement(element);
         });
       }
     };
 
-    return toastMainFunction.createElement();
+    return createElement();
   };
 
-  return toastMessage;
+  return ToastNotification;
 }
