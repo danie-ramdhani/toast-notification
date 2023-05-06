@@ -19,7 +19,7 @@
         title: preferences.title ? preferences.title : null,
         message: preferences.message || "This is Toast message!",
         icon: preferences.icon ? preferences.icon : null,
-        duration: !preferences.duration ? 5000 : preferences.duration * 1000,
+        duration: preferences.duration ? preferences.duration * 1000 : !preferences.duration && preferences.duration <= 0 ? 0 : 5000,
         closeButton: ["false", "0"].includes(String(preferences.closeButton).toLowerCase()) ? false : true,
         position: {
           x: preferences.position && ["left", "center", "right"].includes(preferences.position.x) ? preferences.position.x : "right",

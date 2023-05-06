@@ -1,6 +1,6 @@
 {
   "name": "toast-notification-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple notification with better customization",
   "main": "src/toast-notification.esm.js",
   "module": "src/toast-notification.esm.js",

@@ -19,3 +19,9 @@
 ### fixed:
 
 - fix notification stay in same place
+
+## [1.0.2] - 2023-05-07
+
+### fixed:
+
+- fix duration option on `0` value
