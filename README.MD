@@ -24,7 +24,10 @@ or you can include it on you page via CDN
 on head tag:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/toast-notification-js/dist/toast-notification.min.css" />
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/toast-notification-js/dist/toast-notification.min.css"
+/>
 ```
 
 on body tag:
@@ -35,21 +38,40 @@ on body tag:
 
 ## ⏩ Quick Start:
 
-```javascript
-var toastNotification = ToastNotification();
+```js
+document.addEventListener("DOMContentLoaded", () => {
+    var toastNotification = ToastNotification();
 
-toastNotification.create();
+    toastNotification.create();
 
-// or
+    // or
 
-toastNotification.create({
-  classList: "your-favorite-custom-color",
-  icon: "🍞",
-  duration: "10",
-  position: {
-    y: "top",
-  },
-  // and other options...
+    toastNotification.create({
+        classList: "your-favorite-custom-color",
+        icon: "🍞",
+        duration: "10",
+        position: {
+            y: "top",
+        },
+        // and other options...
+    });
+});
+```
+
+As module:
+
+```js
+import "toast-notification-js/src/toast-notification.css";
+import { ToastNotification } from "toast-notification-js";
+
+ToastNotification.create({
+    classList: "your-favorite-custom-color",
+    icon: "🍞",
+    duration: "10",
+    position: {
+        y: "top",
+    },
+    // and other options...
 });
 ```
 
@@ -72,3 +94,4 @@ toastNotification.create({
 | progressBar           | Boolean or Object | You can pass `false` or `0` value to disable progress bar. or you can pass object with key `show` and `classList`.                                                                                              | true                     |
 | progressBar.show      | Boolean           | Whether to display a progress bar on the toast element.                                                                                                                                                         | true                     |
 | progressBar.classList | String            | Your background color classes for the progress bar color, or `currentColor` if none is specified.                                                                                                               | null                     |
+| root                  | HTMLElement       | Display notification inside this element                                                                                                                                                                        | `document.body`          |
