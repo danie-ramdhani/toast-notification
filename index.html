@@ -72,11 +72,11 @@
             src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
         ></script>
 
-        <script type="module">
+        <!-- <script type="module">
             import { ToastNotification } from "./src/toast-notification.esm.js";
             window.ToastNotification = ToastNotification;
-        </script>
-        <!-- <script src="src/toast-notification.umd.js"></script> -->
+        </script> -->
+        <script src="src/toast-notification.umd.js"></script>
         <!-- <script src="dist/toast-notification.min.js"></script> -->
         <!-- <script src="https://unpkg.com/toast-notification-js/dist/toast-notification.min.js"></script> -->
 
@@ -99,6 +99,9 @@
                         progressBar: event.detail.progressBar,
                         // root: document.getElementById("toast-container"),
                     });
+                });
+                window.addEventListener("clearToastNotification", (event) => {
+                    toastNotification.clear();
                 });
             });
         </script>
@@ -302,6 +305,13 @@
                         x-on:click="$dispatch('showToastNotification', data)"
                     >
                         Create Toast
+                    </button>
+                    <button
+                        type="button"
+                        class="px-4 py-2 text-white bg-black rounded-xl w-fit"
+                        x-on:click="$dispatch('clearToastNotification')"
+                    >
+                        Clear Toast
                     </button>
                 </div>
                 <h3 class="mb-4 text-xl">Generated code:</h3>

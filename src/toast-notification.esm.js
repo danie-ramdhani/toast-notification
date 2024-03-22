@@ -1,7 +1,10 @@
-var toastNotificationElements = {
+let toastNotificationElements = {
     top: [],
     bottom: [],
 };
+
+const toastNotificationPositions = Object.keys(toastNotificationElements);
+
 export function ToastNotification() {
     ToastNotification.create = (preferences = {}) => {
         const options = {
@@ -210,6 +213,25 @@ export function ToastNotification() {
         };
 
         return createElement();
+    };
+
+    ToastNotification.clear = () => {
+        const removeElementWithFadeEffect = (element) => {
+            element.style.transition = 'opacity 0.2s ease-out';
+            element.style.opacity = '0';
+
+            element.addEventListener('transitionend', () => {
+                element.remove();
+            });
+        };
+
+        // remove all elements
+        toastNotificationPositions.forEach((key) => {
+            toastNotificationElements[key].forEach((element) => {
+                removeElementWithFadeEffect(element);
+            });
+            toastNotificationElements[key] = [];
+        });
     };
 
     return ToastNotification;
