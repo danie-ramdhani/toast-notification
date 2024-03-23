@@ -19,6 +19,7 @@ export function ToastNotification() {
                 y: preferences.position && ['bottom', 'top'].includes(preferences.position.y) ? preferences.position.y : 'bottom',
                 z: preferences.position && preferences.position.z ? preferences.position.z : 50,
             },
+            marginWidth: preferences.marginWidth,
             redirect:
                 preferences.redirect && typeof preferences.redirect == 'string'
                     ? preferences.redirect
@@ -131,6 +132,10 @@ export function ToastNotification() {
         toastWrapper.style.transitionProperty = 'all';
         toastWrapper.style.transitionTimingFunction = 'cubic-bezier(0.4, 0, 0.2, 1)';
         toastWrapper.style.transitionDuration = `${transitionDuration}ms`;
+        if (options.marginWidth) {
+            toastWrapper.style.marginLeft = options.marginWidth;
+            toastWrapper.style.marginRight = options.marginWidth;
+        }
         toastWrapper.appendChild(toastBody);
 
         const createElement = () => {
