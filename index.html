@@ -95,6 +95,7 @@
                         duration: event.detail.duration,
                         closeButton: event.detail.closeButton,
                         position: event.detail.position,
+                        marginWidth: event.detail.marginWidth,
                         redirect: event.detail.redirect,
                         progressBar: event.detail.progressBar,
                         // root: document.getElementById("toast-container"),
@@ -130,26 +131,22 @@
           position: {},
         }
       }"
-            x-init="()=>{
-          data.classList = 'text-black bg-gradient-to-t from-emerald-400 via-sky-100 to-cyan-300 dark:text-white dark:bg-gradient-to-tl dark:from-slate-600 dark:via-neutral-800 dark:to-stone-300';
-          data.icon = '🍞';
-          // data.duration = 5;
-      }"
             class="flex flex-wrap gap-4"
         >
             <div
                 class="flex flex-col w-full gap-2 px-2 overflow-y-auto font-semibold capitalize max-h-96 md:w-5/12"
             >
                 <label class="flex flex-col">
-                    <span>class list</span>
+                    <span class="text-xl underline">class list</span>
                     <input
                         type="text"
-                        x-model="data.classList"
+                        x-model.fill="data.classList"
+                        value="text-black bg-gradient-to-t from-emerald-400 via-sky-100 to-cyan-300 dark:text-white dark:bg-gradient-to-tl dark:from-slate-600 dark:via-neutral-800 dark:to-stone-300"
                         placeholder="toast class list"
                     />
                 </label>
                 <label class="flex flex-col">
-                    <span>title</span>
+                    <span class="text-xl underline">title</span>
                     <input
                         type="text"
                         x-model="data.title"
@@ -157,7 +154,7 @@
                     />
                 </label>
                 <label class="flex flex-col">
-                    <span>message</span>
+                    <span class="text-xl underline">message</span>
                     <input
                         type="text"
                         x-model="data.message"
@@ -165,11 +162,16 @@
                     />
                 </label>
                 <label class="flex flex-col">
-                    <span>icon</span>
-                    <input type="text" x-model="data.icon" placeholder="icon" />
+                    <span class="text-xl underline">icon</span>
+                    <input
+                        type="text"
+                        x-model.fill="data.icon"
+                        value="🍞"
+                        placeholder="icon"
+                    />
                 </label>
                 <label class="flex flex-col">
-                    <span>duration (in seconds)</span>
+                    <span class="text-xl underline">duration (in seconds)</span>
                     <input
                         type="number"
                         max="1000"
@@ -180,7 +182,7 @@
                     />
                 </label>
                 <div>
-                    <span>close button</span>
+                    <span class="text-xl underline">close button</span>
                     <div class="flex flex-row gap-2">
                         <label class="flex flex-row items-center gap-1">
                             <input
@@ -202,7 +204,7 @@
                 </div>
                 <div class="flex flex-row flex-wrap w-full gap-2">
                     <label class="flex flex-col">
-                        <span>position x</span>
+                        <span class="text-xl underline">position x</span>
                         <select x-model="data.position.x">
                             <option value="right">right (default)</option>
                             <option value="center">center</option>
@@ -210,14 +212,16 @@
                         </select>
                     </label>
                     <label class="flex flex-col">
-                        <span>position y</span>
+                        <span class="text-xl underline">position y</span>
                         <select x-model="data.position.y">
                             <option value="bottom">bottom (default)</option>
                             <option value="top">top</option>
                         </select>
                     </label>
                     <label class="flex flex-col">
-                        <span>position z (z-index)</span>
+                        <span class="text-xl underline"
+                            >position z (z-index)</span
+                        >
                         <input
                             type="number"
                             min="1"
@@ -226,6 +230,15 @@
                         />
                     </label>
                 </div>
+                <label class="flex flex-col">
+                    <span class="text-xl underline">Margin Width</span>
+                    <input
+                        type="text"
+                        x-model.fill="data.marginWidth"
+                        value="20px"
+                        placeholder="Margin X"
+                    />
+                </label>
                 <div>
                     <span class="text-xl underline">redirect</span>
                     <div class="flex flex-row gap-2">
@@ -317,7 +330,7 @@
                 <h3 class="mb-4 text-xl">Generated code:</h3>
                 <code class="select-all">
                     <span class="block"
-                        ><span class="text-sky-400">var</span>
+                        ><span class="text-sky-400">const</span>
                         <span class="text-cyan-400"
                             >createToastNotification</span
                         >
