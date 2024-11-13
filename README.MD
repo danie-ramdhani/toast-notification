@@ -36,7 +36,7 @@ on body tag:
 <script src="https://unpkg.com/toast-notification-js/dist/toast-notification.min.js"></script>
 ```
 
-## ⏩ Quick Start:
+## ⏩ Quick Start
 
 ```js
 document.addEventListener("DOMContentLoaded", () => {
@@ -96,3 +96,67 @@ ToastNotification.create({
 | progressBar.show      | Boolean           | Whether to display a progress bar on the toast element.                                                                                                                                                         | true                     |
 | progressBar.classList | String            | Your background color classes for the progress bar color, or `currentColor` if none is specified.                                                                                                               | null                     |
 | root                  | HTMLElement       | Display notification inside this element                                                                                                                                                                        | `document.body`          |
+
+## Livewire v3 in SPA mode guide (Persist all notifications)
+
+```js
+// resources/js/app.js
+
+let notifications = [];
+
+document.addEventListener("livewire:navigating", () => {
+    notifications = document.querySelectorAll(".toast-wrapper");
+
+    notifications.forEach((el) => {
+        const animations = el.querySelector(".progress-bar")?.getAnimations();
+
+        // if the notification has progress bar
+        animations &&
+            animations.forEach((animation) => {
+                const keyframes = animation.effect.getKeyframes();
+                const duration = animation.effect.getComputedTiming().duration;
+                const currentTime = animation.currentTime;
+
+                el._progressBarAnimations = {
+                    keyframes,
+                    duration,
+                    currentTime,
+                };
+            });
+    });
+
+    // prevent duplicate in navigating back/forward with browser button
+    // because all elements when navigate back/forward with browser button is cached
+    notifications.forEach((el) => el.remove());
+});
+
+document.addEventListener("livewire:navigated", () => {
+    notifications.forEach((el) => {
+        document.body.prepend(el);
+
+        if (el._progressBarAnimations) {
+            const pausedAnimations = el._progressBarAnimations;
+
+            const progressBar = el.querySelector(".progress-bar");
+            progressBar.style.visibility = "hidden";
+
+            const newDuration =
+                pausedAnimations.duration - pausedAnimations.currentTime;
+            progressBar.style.animationDuration = `${newDuration}ms`;
+
+            const animation = progressBar.animate(
+                pausedAnimations.keyframes,
+                pausedAnimations.duration
+            );
+            animation.currentTime = pausedAnimations.currentTime;
+
+            // prevent tick effect from full duration to new duration
+            setTimeout(() => {
+                progressBar.style.visibility = "visible";
+            });
+
+            delete el._progressBarAnimations;
+        }
+    });
+});
+```
